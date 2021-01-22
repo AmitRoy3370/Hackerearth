@@ -1,0 +1,178 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+ class TestCase {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int testCases,node,bug,a,b;
+    
+    static class Graph{
+        
+        int node,a,b;
+
+        boolean []visited;
+        
+        int color[];
+        
+        List<List<Integer>> list=new ArrayList<>();
+        
+        public Graph() {
+            
+            
+        }
+
+        public Graph(int node) {
+            this.node = node;
+        
+            for(int i=0;i<node;i++){
+                
+                list.add(new ArrayList<>());
+                
+            }
+            
+            visited=new boolean[node];
+            
+            color=new int[node];
+            
+        }
+
+        public int getNode() {
+            return node;
+        }
+
+        public void setNode(int node) {
+            this.node = node;
+        }
+        
+        void AddData(int a,int b){
+            
+            try{
+                
+                list.get(a).add(b);
+                
+            }catch(Exception e){
+                
+                
+            }
+            
+            try{
+                
+                list.get(b).add(a);
+                
+            }catch(Exception e){
+                
+                
+            }
+            
+        }
+        
+         boolean DFS(int source,int c){
+            
+             visited[source]=true;
+             
+             color[source]=c;
+             
+             for(int i: list.get(source)){
+                 
+                 if( visited[i]==false ){
+                     
+                     if( DFS( i,c^1 )==false ){
+                         
+                         return false;
+                         
+                     }
+                     
+                 }else{
+                     
+                     if( color[source]==color[i] ){
+                         
+                         return false;
+                         
+                     }
+                     
+                 }
+                 
+             }
+             
+             return true;
+             
+         }
+        
+         void Bugging(int t){
+             
+             boolean flag=true;
+             
+             for(int i=0;i<this.getNode();i++){
+                 
+                 if(visited[i]==false){
+                 
+                     try{
+                     
+            boolean b = this.DFS(i, 0);
+             
+               if( b==false ){
+                   
+                   flag=false;
+                   
+               }
+               
+                     }catch(Exception e){
+                         
+                         
+                     }
+               
+             }
+             
+            
+             }
+   
+              System.out.println("Scenario #"+t+":");
+             
+             if( flag==false ){
+                 
+                 System.out.println("suspicious bugs found!");
+                 
+             }else{
+                 
+                 System.out.println("No suspicious bugs found!");
+                 
+             }
+             
+             list.clear();
+             
+         }
+         
+    }
+    
+   static Graph graph=new Graph();
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+            node=scanner.nextInt();
+         
+            graph=new Graph(node);
+            
+            bug=scanner.nextInt();
+            
+        for(int j=0;j<bug;j++){
+            
+            a=scanner.nextInt()-1;
+            b=scanner.nextInt()-1;
+            
+            graph.AddData(a, b);
+            
+        }    
+            
+        graph.Bugging(i+1);
+        
+        }
+        
+    }
+    
+}
