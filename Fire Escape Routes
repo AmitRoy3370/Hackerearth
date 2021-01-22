@@ -1,0 +1,178 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.Stack;
+
+ class TestCase {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int testCases,node,edges,a,b;
+
+    static List<Integer> components=new ArrayList<>();
+    
+    static class Graph{
+        
+    List< Set<Integer> > list=new ArrayList<>();
+        
+    int node;
+
+    boolean []visited;
+    
+        public Graph(int node) {
+            this.node = node;
+        
+            visited=new boolean[node];
+            
+            for(int i=0;i<node;i++){
+                
+                list.add( new HashSet<>() );
+                
+            }
+            
+        }
+
+        public Graph() {
+        
+            
+        }
+
+        public int getNode() {
+            return node;
+        }
+
+        public void setNode(int node) {
+            this.node = node;
+        }
+        
+    void AddEdge(int a,int b){
+        
+        try{
+            
+            list.get(a).add(b);
+            
+        }catch(Exception e){
+            
+            
+        }
+        
+        try{
+            
+            list.get(b).add(a);
+            
+        }catch(Exception e){
+            
+            
+        }
+        
+    }
+    
+    int DFS(int source){
+        
+        visited[source]=true;
+        
+        int dis=1;
+        
+        Stack<Integer> stack=new Stack<>();
+        
+        stack.push(source);
+        
+        while(!stack.isEmpty()){
+            
+            int element=stack.pop();
+            
+            Iterator iterator=list.get(element).iterator();
+            
+            while(iterator.hasNext()){
+                
+                int v=(int) iterator.next();
+                
+                if( visited[v]!=true ){
+                    
+                    visited[v]=true;
+                    
+                    dis++;
+                    
+                    stack.push(v);
+                    
+                }
+                
+            }
+            
+        }
+        
+        return dis;
+        
+    }
+    
+    
+    
+    }
+    
+    static Graph graph=new Graph();
+    
+    public static void main(String[] args) {
+        
+    testCases=scanner.nextInt();
+        
+    for(int i=0;i<testCases;i++){
+        
+        node=scanner.nextInt();
+        edges=scanner.nextInt();
+        
+        graph=new Graph(node);
+        
+        for(int j=0;j<edges;j++){
+            
+            a=scanner.nextInt()-1;
+            b=scanner.nextInt()-1;
+            
+            graph.AddEdge(a, b);
+            
+        }
+        
+        for(int j=0;j<node;j++){
+             
+            if(!graph.visited[j]){
+            
+                int y=graph.DFS(j);
+                
+                if(y>0){
+                
+                components.add(y);
+                
+                }else if(y==0){
+                    
+                    components.add(1);
+                    
+                }
+                
+                
+            }
+            
+        }
+        
+        System.out.print(components.size()+" ");
+        
+      //  System.out.println("components: "+String.valueOf(components));
+        
+        int mul=1;
+        
+        for(int j: components ){
+            
+            mul*=j;
+            
+        }
+        
+        System.out.println(mul);
+        
+        components.clear();
+        
+    }
+    
+    }
+    
+}
