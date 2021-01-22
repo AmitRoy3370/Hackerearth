@@ -1,0 +1,80 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+
+ class TestCase {
+
+    static int testCases,red,green;
+    
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+    
+    static PrintWriter pw=new PrintWriter(System.out);
+    
+    public static void main(String[] args) throws IOException {
+        
+        testCases=Integer.parseInt( in.readLine() );
+        
+        for(int i=0;i<testCases;i++){
+            
+            String []s=in.readLine().split("\\s");
+            
+            red=Integer.parseInt( s[0] );
+            green=Integer.parseInt( s[1] );
+            
+          //  if(red!=0){
+            
+             //   System.out.printf( "%7f\n",(1.000000-( (1.000000/(green+red) )*green )) );
+            
+            //}else{
+                
+               // System.out.println("1.000000");
+                
+            //}
+            
+            double total=green+red;
+            
+            double c=1.0,ans=0;
+            
+            if(red!=0){
+            
+            while( green>=0 && red>0 && total>0 ){
+                
+                ans+=c*red/total;
+                
+                c*=green*(green-1)/( (total-1)*total );
+                
+                green-=2;
+                
+                total-=2;
+                
+            }
+            
+                System.out.printf("%7f\n",ans);
+            
+            }else{
+                
+                System.out.println("1.000000");
+                
+            }
+        }
+        
+    }
+    
+}
+/*3
+2 1
+1 1
+10 0*/
+
+/*10
+1 0
+0 0
+0 1
+1000 0
+0 1000
+999 999
+882 456
+345 234
+12 45
+345 56*/
