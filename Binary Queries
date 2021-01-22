@@ -1,0 +1,66 @@
+import java.util.Scanner;
+
+ class TestCase {
+
+    static Scanner scanner=new Scanner(System.in);
+    
+    static long N,Q,t,l,r,x;
+    
+    public static void main(String[] args) {
+        
+        N=scanner.nextLong();
+        
+        Q=scanner.nextLong();
+        
+        int bin[]=new int[(int)N];
+        
+        for(int i=0;i<N;i++){
+            
+            bin[i]=scanner.nextInt();
+            
+        }
+        
+        for(int i=0;i<Q;i++){
+            
+            t=scanner.nextInt();
+            
+            if( t==1 ){
+                
+                x=scanner.nextInt()-1;
+                
+               if(bin[(int)x]==0 ){
+                   
+                   bin[(int)x]=1;
+                   
+               }else{
+                   
+                   bin[(int)x]=0;
+                   
+               }
+                
+            }else if(t==0){
+                
+                l=scanner.nextLong();
+                r=scanner.nextLong()-1;
+                
+                if( bin[(int)r]==0 ){
+                    
+                    System.out.println("EVEN");
+                    
+                }else{
+                    
+                    System.out.println("ODD");
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+}
+/*5 2
+1 0 1 1 0
+1 2
+0 1 4*/
