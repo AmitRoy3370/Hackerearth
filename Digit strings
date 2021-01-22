@@ -1,0 +1,81 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.math.BigInteger;
+
+ class TestCase {
+
+    static int testCases;
+    
+    static long n,k;
+     
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+    
+    static BigInteger mod=BigInteger.valueOf(10).pow(9).add( BigInteger.valueOf(7) );
+    
+    static void solve() throws IOException{
+        
+        String x[]=in.readLine().split("\\s");
+        
+        n=Integer.parseInt( x[0] );
+        
+        k=Long.parseLong( x[1] );
+        
+      String s=in.readLine().trim();
+        
+       long [] dp=new long[(int) (n+1) ];
+        
+     char ch[]=s.toCharArray();
+        
+     dp[(int)n]=1;
+     
+     for(int i=(int)(n-1);i>=0;i--){
+         
+         long num=0;
+         
+         for(int j=i;j<n;j++){
+             
+            num=num*10+(ch[j]-48);
+             
+            if( num>=k ){
+                
+                break;
+                
+            }else{
+                
+                dp[i]=(dp[i]+dp[j+1])%mod.longValue();
+                
+            }
+            
+         }
+         
+     }
+     
+        System.out.println(dp[0]);
+     
+     //   System.out.println("dp: "+Arrays.toString(dp));
+        
+    }
+            
+    public static void main(String[] args) throws IOException {
+        
+        testCases=Integer.parseInt( in.readLine() );
+        
+        for(int i=0;i<testCases;i++){
+            
+            solve();
+            
+        }
+        
+    }
+    
+}
+/*2
+5 6
+34212
+2 21
+11*/
+
+/*1
+8 22
+37210540*/
