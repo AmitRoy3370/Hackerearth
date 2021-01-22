@@ -1,0 +1,150 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+ class TestCase {
+
+  static int nodes,edges,a,b,weight;
+    
+  static Scanner scanner=new Scanner(System.in);
+  
+  static int find2(int node,int parent[]){
+      
+      if( parent[node]==-1 ){
+          
+          return node;
+          
+      }
+      
+      return find2( parent[node],parent );
+      
+  }
+  
+  static int ThreeTypes(int n,int edges[][]){
+      
+      int man[]=new int[nodes];
+      
+      int []woman=new int[nodes];
+      
+      Arrays.fill(man, -1);
+      Arrays.fill(woman, -1);
+      
+      Arrays.sort(edges,(o1,o2)->o2[2]-o1[2]  );
+      
+      int taken=0;
+      
+      for(int i=0;i<edges.length;i++){
+          
+          int []g=edges[i];
+          
+          int type=g[2];
+          
+          int u=g[0];
+          int v=g[1];
+          
+          switch (type) {
+              case 3:
+                  {
+                      int a=find2(u,man);
+                      int b=find2( v,man );
+                      if( a!=b ){
+                          
+                          man[a]=b;
+                          woman[a]=b;
+                          
+                          taken++;
+                          
+                      }       break;
+                  }
+              case 1:
+                  {
+                      int a=find2(u,man);
+                      int b=find2(v,man);
+                      if( a!=b ){
+                          
+                          man[a]=b;
+                          man[a]=b;
+                          
+                          taken++;
+                          
+                      }       break;
+                  }
+              default:
+                  {
+                      int a=find2(u,woman  );
+                      int b=find2( v,woman );
+                      if( a!=b ){
+                          
+                          woman[a]=b;
+                          
+                          woman[a]=b;
+                          
+                          taken++;
+                          
+                      }       break;
+                  }
+          }
+          
+      }
+      
+      int m=0,w=0;
+      
+      for(int i=0;i<n;i++){
+          
+          if( man[i]==-1 ){
+              
+              m++;
+              
+          }
+          
+          if( woman[i]==-1 ){
+              
+              w++;
+              
+          }
+          
+      }
+      
+      if( w>1 || m>1 ){
+          
+          return -1;
+          
+      }
+      
+      return edges.length-taken;
+      
+  }
+  
+    public static void main(String[] args) {
+        
+nodes=scanner.nextInt();
+        
+edges=scanner.nextInt();
+
+int [][]graph=new int[edges][3];
+
+for(int i=0;i<edges;i++){
+    
+    a=scanner.nextInt()-1;
+    b=scanner.nextInt()-1;
+    
+    weight=scanner.nextInt();
+    
+    graph[i][0]=a;
+    graph[i][1]=b;
+    graph[i][2]=weight;
+    
+}
+
+        System.out.println( ThreeTypes( nodes,graph ) );
+
+    }
+  
+}
+/*5 7
+1 2 3
+2 3 3
+3 4 3
+5 3 2
+5 4 1
+5 2 2
+1 5 1*/
