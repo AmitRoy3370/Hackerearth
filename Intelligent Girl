@@ -1,0 +1,44 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+ class TestCase {
+
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+    
+    static String s;
+    
+    public static void main(String[] args) throws IOException {
+        
+        s=in.readLine();
+        
+        int a[]=new int[s.length()];
+        
+        for(int i=0;i<s.length();i++){
+            
+            a[i]=Integer.parseInt( String.valueOf( s.charAt(i) ) );
+            
+        }
+        
+        for(int i=0;i<=s.length()-1;i++){
+            
+            int count=0;
+            
+            for(int j=i;j<=s.length()-1;j++){
+                
+                if( a[j]%2==0 ){
+                    
+                    count++;
+                    
+                }
+                
+            }
+            
+            System.out.print(count+" ");
+            
+        }
+        
+    }
+    
+}
+/*574674546476*/
