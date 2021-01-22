@@ -1,0 +1,105 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+
+ class TestCase {
+
+    static int n;
+    
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+    
+    static int a[];
+    
+    public static void main(String[] args) throws IOException {
+        
+        n=Integer.parseInt( in.readLine() );
+        
+        a=new int[n];
+        
+        String x[]=in.readLine().split("\\s");
+        
+        for(int i=0;i<n;i++){
+            
+            a[i]=Integer.parseInt( x[i] );
+            
+        }
+      
+        for(int i=0;i<n;i++){
+            
+            if( a[i]%2==0 ){
+                
+                a[i]=1;
+                
+            }else{
+                
+                a[i]=-1;
+                
+            }
+            
+        }
+        
+   //long mat[][]=new long[n][n];
+    
+   /*for(int i=0;i<n;i++){
+       
+       mat[i][i]=1;
+       
+   }*/
+   
+  Map<Long,Integer> map=new HashMap<>();
+   
+  map.put((long)0, 1);
+   
+  map.put((long)-1, 0);
+  
+  long count=0,ans=0;
+  
+  for(int i=0;i<n;i++){
+      
+      count+=a[i];
+      
+      try{
+      
+      ans+=map.get(count);
+      
+      }catch(Exception e){
+          
+          ans+=0;
+          
+      }
+      
+      try{
+          
+          map.put(count, map.get(count)+1 );
+          
+      }catch(Exception e){
+          
+          map.put(count, 1);
+          
+      }
+      
+  }
+  
+        System.out.println(ans);
+  
+       /* for(int i=0;i<map.size();i++){
+            
+            System.out.println(map.keySet()+"    "+map.entrySet());
+            
+        }*/
+        
+     //   System.out.println("map: "+String.valueOf(map));
+       
+    }
+    
+}
+/*4
+1 2 1 2*/
+
+/*
+5
+4 1 2 1 2
+
+*/
