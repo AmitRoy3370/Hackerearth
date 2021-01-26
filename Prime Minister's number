@@ -1,0 +1,98 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Vector;
+
+ class TestCase {
+
+    static int a,b;
+    
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+    
+    static Vector<String> vector=new Vector<>();
+    
+    static boolean visited[];
+    
+    static void initialize(){
+        
+        visited[0]=visited[1]=true;
+        
+        for(int i=2;i*i<=b;i++){
+            
+            if( !visited[i] ){
+                
+              for(int j=i*i;j<=b;j+=i){
+                  
+                  visited[j]=true;
+                  
+              }
+                
+            }
+            
+        }
+        
+       for(int i=2;i<=b;i++){
+           
+           if( !visited[i] ){
+               
+               vector.add( String.valueOf( i ) );
+               
+           }
+           
+       }
+        
+    }
+    
+    static boolean isPrime(String s){
+        
+        int sum=0;
+        
+        for(int i=0;i<s.length();i++){
+            
+            sum+=Integer.parseInt( String.valueOf( s.charAt(i) ) );
+            
+        }
+        
+        for(int i=2;i*i<=sum;i++ ){
+            
+            if( sum%i==0 ){
+                
+                return false;
+                
+            }
+            
+        }
+        
+        return true;
+        
+    }
+    
+    public static void main(String[] args) throws IOException {
+        
+        String x[]=in.readLine().split("\\s");
+        
+        a=Integer.parseInt( x[0] );
+        b=Integer.parseInt( x[1] );
+        
+        visited=new boolean[b+1];
+        
+        initialize();
+        
+        for( String i: vector ){
+            
+            if( Integer.parseInt( i )>=a ){
+                
+                if( isPrime( i ) ){
+                    
+                    System.out.print(i+" ");
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+}
+//10 50
