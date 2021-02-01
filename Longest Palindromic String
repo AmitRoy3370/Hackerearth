@@ -1,0 +1,95 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+//import for Scanner and other utility classes
+import java.util.*;
+
+// Warning: Printing unwanted or ill-formatted data to output will cause the test cases to fail
+
+class TestClass {
+
+static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+
+static String s;
+
+static void longestPalindrome( char ch[] ){
+
+char T[]=new char[ 2*ch.length+3 ];
+
+int P[]=new int[ T.length ];
+
+T[0]='$';
+T[ T.length-1 ]='@';
+T[ T.length-2 ]='#';
+
+int index=0;
+
+for(int i=1;i<T.length-2;i++ ){
+
+if( i%2==0 ){
+
+T[i]=ch[ index++ ];
+
+}else{
+
+T[i]='#';
+
+}
+
+}
+
+int c=0,r=0,maxLength=0,maxCenter=0;
+
+for(int i=1;i<T.length-1;i++){
+
+int mirr=2*c-i;
+
+if( r>i ){
+
+P[i]=Math.min( r-i,P[mirr] );
+
+}
+
+while( T[ i+(1+P[i]) ]==T[ i-(1+P[i]) ] ){
+
+P[i]++;
+
+}
+
+if( P[i]>maxLength ){
+
+maxCenter=i;
+maxLength=P[i];
+
+}
+
+if( r<i+P[i] ){
+
+c=i;
+r=i+P[i];
+
+}
+
+}
+
+System.out.println( maxLength );
+
+String st=new String(T);
+
+st=st.replace("$","");
+st=st.replace("@","");
+
+System.out.println( st.substring( maxCenter-maxLength,maxLength+maxCenter ).toString().replace( "#","" ) );
+
+}
+
+    public static void main(String args[] ) throws Exception {
+        
+s=in.readLine();
+
+char ch[]=s.toCharArray();
+
+longestPalindrome( ch );
+
+    }
+}
