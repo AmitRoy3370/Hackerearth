@@ -1,0 +1,93 @@
+import java.io.*;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Another_substring {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter wr = new PrintWriter(System.out);
+        int T = Integer.parseInt(br.readLine().trim());
+        for(int t_i=0; t_i<T; t_i++)
+        {
+            String[] inp = br.readLine().split(" ");
+            int N = Integer.parseInt(inp[0]);
+            int K = Integer.parseInt(inp[1]);
+            int[] A = new int[N];
+            String[] inp1 = br.readLine().split(" ");
+            for(int i=0;i<N;i++)
+            {
+                A[i] = Integer.parseInt(inp1[i]);
+            }
+            int out_ = solve(N, K, A);
+            System.out.println(out_);
+         }
+
+         wr.close();
+         br.close();
+    }
+    static int solve(int N, int K, int[] A){
+        // Your code goes here
+
+int c[]=new int[N];
+
+int l=0,r=0,cnt=0,ans=1000000009;
+
+while( cnt<K && r<N ){
+
+if( ++c[ A[r++]-1 ]==1 ){
+
+cnt++;
+
+}
+
+}
+
+if( r==N && cnt<K ){
+
+return -1;
+
+}
+
+while( cnt==K || r<N ){
+
+if( cnt==K ){
+
+ans=Math.min( ans,r-l );
+
+if( --c[ A[l++]-1 ]==0 ){
+
+cnt--;
+
+}
+
+}else{
+
+if( ++c[ A[r++]-1 ]==1 ){
+
+cnt++;
+
+}
+
+}
+
+}
+
+return ans;
+
+    }
+}
+/*
+
+1
+5 3
+1 2 2 3 1
+
+*/
+
+/*
+
+1
+10 4
+1 2 2 3 1 2 3 4 2 1
+
+*/
