@@ -1,0 +1,176 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class I_think_its_easy {
+
+    static int testCases;
+    
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+
+    static sortingCount []a;
+    
+    static void merge( sortingCount a[],int left,int right,int mid ){
+        
+        int n1=mid-left+1;
+        
+        int n2=right-mid;
+        
+        sortingCount L[]=new sortingCount[n1];
+
+for(int i=0;i<n1;i++){
+    
+    L[i]=new sortingCount();
+    
+}
+        
+        sortingCount R[]=new sortingCount[n2];
+        
+        for(int i=0;i<n2;i++){
+    
+    R[i]=new sortingCount();
+    
+}
+        
+        for(int i=0;i<n1;i++){
+            
+            L[i].s=a[left+i].s;
+            L[i].len=a[left+i].len;
+            
+        }
+        
+        for(int j=0;j<n2;j++){
+            
+            R[j].s=a[mid+j+1].s;
+            R[j].len=a[mid+j+1].len;
+            
+        }
+        
+        int i=0,j=0,k=left;
+        
+        while( i<n1 && j<n2 ){
+            
+            if( L[i].len<=R[j].len ){
+                
+                a[k].len=L[i].len;
+                
+                a[k].s=L[i].s;
+                
+                i++;
+                
+            }else{
+                
+                a[k].len=R[j].len;
+                a[k].s=R[j].s;
+                
+                j++;
+                
+            }
+            
+            k++;
+            
+        }
+        
+        while( i<n1 ){
+            
+            a[k].len=L[i].len;
+            a[k].s=L[i].s;        
+            
+            i++;
+            k++;
+            
+        }
+        
+        while( j<n2 ){
+            
+            a[k].len=R[j].len;
+            
+            a[k].s=R[j].s;
+            
+            j++;
+            k++;
+            
+        }
+        
+    }
+    
+    static void mergeSort( sortingCount a[],int left,int right ){
+        
+        if( left>=right ){
+            
+            return;
+            
+        }
+        
+        int mid=(left+right)/2;
+        
+        mergeSort( a,left,mid );
+        
+        mergeSort( a,mid+1,right );
+        
+        merge( a,left,right,mid );
+        
+    }
+    
+    private static void solve() throws IOException {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  
+String x[]=in.readLine().split("\\s");
+
+a=new sortingCount[x.length];
+
+for(int i=0;i<x.length;i++){
+    
+    a[i]=new sortingCount( x[i],x[i].length() );
+    
+}
+
+mergeSort( a,0,a.length-1 );
+
+for( sortingCount i: a ){
+    
+    System.out.print(" "+i.s);
+    
+}
+
+        System.out.println();
+
+    }
+    
+    static class sortingCount{
+        
+        String s;
+        int len;
+
+        public sortingCount() {
+        
+        }
+
+        public sortingCount(String s, int len) {
+            this.s = s;
+            this.len = len;
+        }
+       
+    }
+    
+    public static void main(String[] args) throws IOException {
+        
+       testCases=Integer.parseInt( in.readLine() );
+        
+       for(int i=0;i<testCases;i++){
+           
+           solve();
+           
+       }
+       
+    }
+    
+}
+/*
+
+3
+ab cd e j asd ljffg df
+a a b b c c
+xy yx zxy zx xzy xxx
+
+*/
