@@ -1,0 +1,105 @@
+import java.io.*;
+import java.util.*;
+
+import java.math.*;
+
+public class TestClass {
+
+static BigInteger mod=BigInteger.valueOf( 10 ).pow(9).add( BigInteger.valueOf( 7 ) );
+
+static int max_K=100,max_X=10000;
+
+static long dp[][]=new long[ max_X+1 ][ max_K+1 ];
+
+static void preCal(){
+
+for(int k=0;k<=max_K;k++){
+
+dp[0][k]=dp[1][k]=1;
+
+for(int x=2;x<=max_X;x++){
+
+if( x<=k ){
+
+dp[x][k]=2*dp[x-1][k]%mod.longValue();
+
+}else{
+
+dp[x][k]=( 2*dp[x-1][k]+mod.longValue()-dp[x-k-1][k] )%mod.longValue();
+
+}
+
+}
+
+}
+
+}
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter wr = new PrintWriter(System.out);
+   
+preCal();
+
+        int T = Integer.parseInt(br.readLine().trim());
+        for(int t_i=0; t_i<T; t_i++)
+        {
+            String[] in=br.readLine().split(" ");
+            long N = Long.parseLong(in[0]);
+            long K = Long.parseLong(in[1]);
+
+            long out_ = solve(K, N);
+            System.out.println(out_);
+            System.out.println("");
+         }
+
+         wr.close();
+         br.close();
+    }
+    static long solve(long x, long n){
+        // write code here
+
+return dp[ (int)n ][ (int)x ];
+
+/*if( n==0 || n==1 || x==1 ){
+
+return 1;
+
+}
+
+long dp[]=new long[ (int)(n+1) ];
+
+for(int i=0;i<=n;i++){
+
+dp[i]=1;
+
+}
+
+for(int i=1;i<n+1;i++){
+
+long total=0;
+
+for(int j=1;j<x+1;j++){
+
+if( i-j>=0 ){
+
+total+=dp[i-j]%mod.longValue();
+
+total%=mod.longValue();
+
+}else{
+
+break;
+
+}
+
+}
+
+dp[i]=total%mod.longValue();
+
+}
+
+return dp[(int)n]%mod.longValue();*/
+
+    }
+}
