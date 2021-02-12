@@ -1,0 +1,127 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+//import java.io.StringTokenizer;
+
+//import for Scanner and other utility classes
+import java.util.*;
+
+// Warning: Printing unwanted or ill-formatted data to output will cause the test cases to fail
+
+class TestClass {
+    
+static FastRead fast=new FastRead();
+
+static int testCases;
+
+static String s;
+
+static void solve(String s){
+
+String str[]=s.split("");
+
+Arrays.sort(str);
+
+boolean check=false;
+
+for(int i=0;i<str.length-1;i++ ){
+
+char ch1=str[i].charAt(0),ch2=str[i+1].charAt(0);
+
+if( ch1!=ch2 ){
+
+check=true;
+
+break;
+
+}else{
+
+i++;
+
+}
+
+}
+
+if( check ){
+
+System.out.println(-1);
+
+}else{
+
+System.out.println(1);
+
+}
+
+}
+
+    public static void main(String args[] ) throws Exception {
+       
+       testCases=fast.nextInt();
+
+for(int i=0;i<testCases;i++){
+
+s=fast.next();
+
+solve(s);
+
+}
+
+    }
+
+static class FastRead{
+
+BufferedReader in;
+StringTokenizer st;
+
+public FastRead(){
+
+try{
+
+in=new BufferedReader( new InputStreamReader( System.in ) );
+
+}catch(Exception e){
+
+
+}
+
+}
+
+String next(){
+
+while( st==null || !st.hasMoreElements() ){
+
+try{
+
+st=new StringTokenizer( in.readLine() );
+
+}catch(Exception e){
+
+
+}
+
+}
+
+return st.nextToken();
+
+}
+
+String nextLine() throws Exception {
+
+return in.readLine();
+
+}
+
+int nextInt() throws Exception {
+
+return Integer.parseInt( next() );
+
+}
+
+long nextLong() throws Exception {
+
+return Long.parseLong( next() );
+
+}
+
+}
+
+}
