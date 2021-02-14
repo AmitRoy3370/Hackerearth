@@ -1,0 +1,73 @@
+/* IMPORTANT: Multiple classes and nested static classes are supported */
+
+
+// * uncomment this if you want to read input.
+//imports for BufferedReader
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+//import for Scanner and other utility classes
+import java.util.*;
+
+
+// Warning: Printing unwanted or ill-formatted data to output will cause the test cases to fail
+
+class TestClass {
+
+static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+
+static int n,k;
+
+    public static void main(String args[] ) throws Exception {
+        
+String x[]=in.readLine().split(" ");
+
+n=Integer.parseInt( x[0] );
+
+k=Integer.parseInt( x[1] );
+
+String y[]=in.readLine().split(" ");
+
+long a[]=new long[n];
+
+for(int i=0;i<n;i++){
+
+a[i]=Long.parseLong( y[i] );
+
+}
+
+long max=0;
+
+for(int i=n-1;i>=0;i--){
+
+long x1=a[i];
+
+if( x1>max ){
+
+max=x1;
+
+}
+
+if( max>x1 ){
+
+a[i]=max-x1;
+
+}else{
+
+a[i]=0;
+
+}
+
+}
+
+//System.out.println( Arrays.toString( a ) );
+
+Arrays.sort(a);
+
+System.out.println( a[n-1]*k );
+
+//System.out.println( Arrays.toString( a ) );
+
+    }
+
+}
