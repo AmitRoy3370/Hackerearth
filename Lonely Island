@@ -1,0 +1,138 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.StringTokenizer;
+ 
+public class Lonely_Island {
+ 
+    static Scanner scanner=new Scanner();
+    
+    static int n,m,r;
+    
+    static List<Integer> graph[];
+    
+    static double in[],out[],val[];
+    
+    static Queue<Integer> stack=new LinkedList<>();
+    
+    public static void main(String[] args) throws IOException {
+        
+        n=scanner.nextInt();
+        m=scanner.nextInt();
+        r=scanner.nextInt();
+        
+    graph=new ArrayList[n+1];    
+        
+    in=new double[n+1];
+    out=new double[n+1];
+    val=new double[n+1];
+    
+    for(int i=0;i<=n;i++){
+        
+        graph[i]=new ArrayList<>();
+        
+    }
+    
+    for(int i=0;i<m;i++){
+        
+        int a=scanner.nextInt(),b=scanner.nextInt();
+        
+        graph[a].add(b);
+        
+        in[b]++;
+        out[a]++;
+        
+    }
+    
+    val[r]=1;
+    
+    for(int i=1;i<=n;i++){
+        
+        if(  in[i]==0 ){
+            
+            stack.add(i);
+            
+        }
+        
+    }
+    
+    double max=Double.MIN_VALUE;
+    
+    while( !stack.isEmpty() ){
+        
+        int u=stack.remove();
+        
+        for(int v: graph[u]){
+            
+            val[v]+=(val[u]/out[u]);
+            
+            in[v]--;
+            
+            if( in[v]==0 ){
+                
+                stack.add(v);
+                
+            }
+            
+        }
+        
+    }
+    
+    for(int i=1;i<=n;i++){
+        
+        if( i!=r && out[i]==0 ){
+            
+            max=Math.max(max, val[i]);
+            
+        }
+        
+    }
+    
+    for(int i=1;i<=n;i++){
+        
+        if( i!=r && out[i]==0 && Math.abs( val[i]-max )<=Math.pow(10, -9) ){
+            
+            System.out.print(i+" ");
+            
+        }
+        
+    }
+    
+    }
+    
+    static class Scanner{
+        
+        BufferedReader in;
+        StringTokenizer st;
+ 
+        public Scanner() {
+ 
+            in=new BufferedReader( new InputStreamReader( System.in ) );
+            
+        }
+ 
+        String next() throws IOException{
+            
+            while( st==null || !st.hasMoreElements() ){
+                
+                st=new StringTokenizer( in.readLine() );
+                
+            }
+            
+            return st.nextToken();
+            
+        }
+        
+        int nextInt() throws IOException{
+            
+            return Integer.parseInt( next() );
+            
+        }
+        
+    }
+    
+}
