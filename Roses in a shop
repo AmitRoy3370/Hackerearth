@@ -1,0 +1,109 @@
+
+import java.util.Scanner;
+
+class TestClass {
+
+static Scanner in=new Scanner(System.in);
+
+static int n;
+
+static long a[];
+
+    public static void main(String args[] ) throws Exception {
+      
+n=in.nextInt();
+
+a=new long[n];
+
+for(int i=0;i<n;i++){
+
+a[i]=in.nextLong();
+
+}
+
+long fwd[]=new long[n];
+
+long bwd[]=new long[n];
+
+for(int i=0;i<n;i++){
+
+fwd[i]=1;
+
+bwd[i]=1;
+
+}
+
+int maxLen=1,maxSoFar=1;
+
+for(int i=0;i<n-1;i++){
+
+if(a[i]<a[i+1]){
+
+maxSoFar++;
+
+fwd[i+1]=maxSoFar;
+
+maxLen=Math.max(maxLen,maxSoFar);
+
+}else{
+
+maxSoFar=1;
+
+}
+
+}
+
+maxSoFar=1;
+
+for(int i=n-2;i>=0;i--){
+
+if(a[i+1]>a[i]){
+
+maxSoFar++;
+
+maxLen=Math.max( maxSoFar,maxLen );
+
+bwd[i]=maxSoFar;
+
+}else{
+
+maxSoFar=1;
+
+}
+
+}
+
+long ans=maxLen;
+
+for(int i=1;i<=n-2;i++){
+
+if(a[i-1]<a[i+1]){
+
+ans=Math.max( ans,fwd[i-1]+bwd[i+1] );
+
+}
+
+}
+
+/*System.out.print("fwd: ");
+
+for(long i: fwd){
+
+System.out.print(i+" ");
+
+}
+
+System.out.print("\nbwd: ");
+
+for(long i: bwd){
+
+System.out.print(i+" ");
+
+}
+
+System.out.println();*/
+
+System.out.println(ans);
+
+    }
+}
