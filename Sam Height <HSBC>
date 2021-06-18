@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+
+class TestClass {
+    public static void main(String args[] ) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt();
+        while(T-->0){
+            int N = sc.nextInt();
+            int S = sc.nextInt();
+            int arr[] = new int[N+1];
+            for(int i=0;i<N;i++){
+                arr[i] = sc.nextInt();
+            }
+
+arr[N]=S;
+
+            long out = solve(arr, N,S);
+            System.out.println(out);
+        }
+    }
+    static long solve(int[] a, int N,int S){
+        // Please write your code here
+    long x=0;
+
+Arrays.sort(a);
+
+for(int i=0;i<=N;i++){
+
+if(a[i]==S && i==0 ){
+
+x=N;
+break;
+
+}
+
+if(a[i]==S && i==N ){
+
+x=N;
+
+break;
+
+}
+
+if(a[i]==S){
+
+x=Math.abs(N-2*i);
+
+break;
+
+}
+
+}
+    
+return x;
+
+    }
+}
