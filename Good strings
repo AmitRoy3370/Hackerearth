@@ -1,0 +1,78 @@
+import java.util.Scanner;
+
+class TestClass {
+
+static Scanner in=new Scanner(System.in);
+
+static int testCases,n;
+
+static String a[];
+
+static void solve(){
+
+long one=0,zero=0,one_zero=0;
+
+for(int i=0;i<n;i++){
+
+int m=a[i].length();
+
+boolean present_one=false,present_zero=false;
+
+for(int j=0;j<m;j++){
+
+if( a[i].charAt(j)=='1' ){
+
+present_one=true;
+
+}else if( a[i].charAt(j)=='0' ){
+
+present_zero=true;
+
+}
+
+}
+
+if( present_one && present_zero ){
+
+one_zero++;
+
+}else if(present_one){
+
+one++;
+
+}else{
+
+zero++;
+
+}
+
+}
+
+long ans=(one*one_zero)+(one_zero*zero)+(one*(one-1)/2)+( zero*(zero-1)/2 )+( one_zero*(one_zero-1)/2 );
+
+System.out.println(ans);
+
+}
+
+    public static void main(String args[] ) throws Exception {
+
+    testCases=in.nextInt();    
+
+           for(int t=0;t<testCases;t++){
+
+               n=in.nextInt();
+
+               a=new String[n];
+
+               for(int i=0;i<n;i++){
+
+                  a[i]=in.next();
+
+               }
+
+               solve();
+
+           } 
+
+    }
+}
