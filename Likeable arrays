@@ -1,0 +1,65 @@
+import java.util.Scanner;
+import java.util.Map;
+import java.util.HashMap;
+
+class TestClass {
+    
+static Scanner in=new Scanner(System.in);
+
+static int testCases,n;
+
+static long a[];
+
+static void solve(){
+
+Map<Long,Integer> map=new HashMap<>();
+
+for(long i: a){
+
+if( !map.containsKey(i) ){
+
+map.put(i,1);
+
+}else{
+
+map.put( i,map.get(i)+1 );
+
+}
+
+}
+
+long ans=0;
+
+for(long i: map.keySet() ){
+
+ans+=Math.min( Math.abs(i-map.get(i) ), map.get(i) );
+
+}
+
+System.out.println(ans);
+
+}
+
+    public static void main(String args[] ) throws Exception {
+        
+         testCases=in.nextInt();
+       
+        for(int t=0;t<testCases;t++){
+
+            n=in.nextInt();
+          
+          a=new long[n];
+
+          for(int i=0;i<n;i++){
+
+                a[i]=in.nextLong();
+
+
+          }
+
+          solve();
+
+        } 
+
+    }
+}
