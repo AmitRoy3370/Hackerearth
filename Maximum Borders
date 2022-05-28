@@ -1,0 +1,94 @@
+import java.util.Scanner;
+
+class TestClass {
+
+  /*
+
+    Here we have two kind of the cell one is black and other        is balck. Border's mention here the consequtive black           cell in the table.
+    Here the black cell represented the # and the white cell
+    mention that .
+    So our main requirement is to detect the maximum number of
+    black cell's or border present in that table. 
+
+    solve example :
+   
+   -
+    2 15
+    .....####......
+    .....#.........
+
+    in this table we have 4 consequtive black cell back to
+    back, so our maximum border is 4
+
+    -
+
+    7 9
+    ...###...
+    ...###...
+    ..#......
+    .####....
+    ..#......
+    ...#####.
+    .........
+
+    Here at the 6th raw 5 consequtive black cell is present
+    so the maximum border is 5
+
+    -
+
+    So We have to just calculate this object
+
+  */
+
+  static Scanner in = new Scanner(System.in);
+
+  static int n, m;
+
+  static char table[][];
+
+  static void solve() {
+
+    int maximum_black_cell = 0;
+
+    for (int i = 0; i < n; ++i) {
+
+      int present_raws_black_cell = 0, present_raws_maximum_black_cell = 0;
+
+      for (int j = 0; j < m; ++j) {
+
+        if (table[i][j] == '#') ++present_raws_black_cell;
+
+        else present_raws_maximum_black_cell = Math.max(present_raws_maximum_black_cell, present_raws_black_cell);
+      }
+
+      maximum_black_cell = Math.max(maximum_black_cell, present_raws_black_cell); //detect the maximum value among the present raw value and the previous get maximum answer
+
+    }
+
+    System.out.println(maximum_black_cell);
+
+  }
+
+  public static void main(String args[]) throws Exception {
+
+    int testCases = in .nextInt();
+
+    for (int t = 0; t < testCases; ++t) {
+
+      n = in .nextInt();
+      m = in .nextInt();
+
+      table = new char[n][m];
+
+      for (int i = 0; i < n; ++i) {
+
+        table[i] = in .next().toCharArray();
+
+      }
+
+      solve();
+
+    }
+
+  }
+}
