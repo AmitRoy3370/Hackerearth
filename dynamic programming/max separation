@@ -1,0 +1,70 @@
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Solution {
+
+    public static void main(String[] priya) {
+        
+        Scanner sc = new Scanner(System.in);
+        
+        int n = sc.nextInt();
+        
+        int k = sc.nextInt();
+        
+        int[] arr = new int[n];
+        
+        for (int i = 0; i < n; i++) {
+            
+            arr[i] = sc.nextInt();
+        
+        }
+        
+        int ans = maxSeparations(n, k, arr);
+        
+        System.out.println(ans);
+    
+    }
+
+    public static int maxSeparations(int n, int k, int[] a) {
+
+        List<Integer> list = new ArrayList<>();
+
+        int even = 0, odd = 0;
+
+        for(int i = 0; i < n; ++i) {
+
+            if(a[i] % 2 == 0) ++even;
+            else ++odd;
+
+            if(even == odd) {
+
+                if(i + 1 < n) {
+
+                    list.add(Math.abs(a[i] - a[i + 1]));
+
+                }
+            }
+
+        }
+
+        Collections.sort(list);
+
+        int cut = 0, cost = 0;
+
+        int len = list.size();
+
+        while(cut < len && cost < k) {
+
+            if(cost + list.get(cut) > k) break;
+
+            cost += list.get(cut++);
+
+        }
+
+        return cut;
+
+    }
+
+}
