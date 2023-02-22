@@ -1,0 +1,67 @@
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        
+        int n = scanner.nextInt();
+        
+        long[] a = new long[n];
+        
+        for(int i = 0; i < n; i++){
+            
+            a[i] = scanner.nextLong();
+        
+        }
+
+        long ans1 = n - lis(n,a);
+        reverseArray(a);
+        long ans2 = n - lis(n,a);
+
+        System.out.println(Math.min(ans1,ans2));
+    }
+
+    public static int lis(int n, long[] a){
+        
+        ArrayList<Long> v = new ArrayList<>();
+        
+        v.add(a[0]);
+        
+        for(int i = 1; i < n; i++){
+            
+            if(a[i] > v.get(v.size()-1)) {
+                
+                v.add(a[i]);
+            
+            }
+            
+            else{
+                
+                int index = Collections.binarySearch(v,a[i]);
+                
+                if(index < 0){
+                    
+                    index = -index-1;
+                
+                }
+                
+                v.set(index, a[i]);
+            
+            }
+        
+        }
+        
+        return v.size();
+    
+    }
+
+    public static void reverseArray(long[] a){
+        for(int i = 0; i < a.length/2; i++){
+            long temp = a[i];
+            a[i] = a[a.length-i-1];
+            a[a.length-i-1] = temp;
+        }
+    }
+}
